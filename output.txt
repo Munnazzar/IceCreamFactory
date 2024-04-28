@@ -1,0 +1,42 @@
+Customer ID: 1
+Cones: Waffle
+Flavours: Vanilla 
+Toppings: Sprinkles Fudge 
+Total Price: 39.91
+
+
+Customer ID: 2
+Cones: Sugar
+Flavours: Chocolate ButterScotch 
+Toppings: WhippedCream 
+Total Price: 176.3
+
+
+Customer ID: 3
+Cones: Cake
+Flavours: Vanilla 
+Toppings: WhippedCream 
+Total Price: Not enough ingredients
+
+
+Customer ID: 4
+Cones: Cake
+Flavours: Vanilla 
+Toppings: WhippedCream 
+Total Price: Not enough ingredients
+
+
+Customer ID: 5
+Cones: Cake
+Flavours: Vanilla 
+Toppings: WhippedCream 
+Total Price: Not enough ingredients
+
+
+Customer ID: 6
+Cones: Cake
+Flavours: Vanilla 
+Toppings: WhippedCream 
+Total Price: Not enough ingredients
+
+
