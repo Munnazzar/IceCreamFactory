@@ -7,7 +7,11 @@
 #include <semaphore.h>
 #include <string.h>
 #include <sys/syscall.h>
+#include <sys/shm.h>
+#include <fcntl.h>
+#include <sys/mman.h>
 #include <string>
+
 using namespace std;
 FILE *fptr;
 
