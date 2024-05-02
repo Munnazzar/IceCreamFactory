@@ -9,10 +9,13 @@
 #include <sys/syscall.h>
 #include <sys/shm.h>
 #include <fcntl.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 #include <sys/mman.h>
 #include <string>
+#include <time.h>
 using namespace std;
-
+struct sysinfo memInfo;
 FILE* fptr;
 struct buyer{
         unsigned int ID;
@@ -148,8 +151,9 @@ void *worker(void *arg){
 }
 
 int main(){
+    clock_t start = clock();
     fptr = freopen("data.txt","r", stdin);
-
+    sysinfo (&memInfo);
     int numThreads;
 	int numBuyers;
 	cin>>numThreads;
@@ -212,9 +216,14 @@ int main(){
 			cout<<"\nTotal Price: "<<allBuyers[i].totalPrice<<endl;
 		cout<<endl<<endl;
 	}
-	
+	long long totalPhysMem = memInfo.totalram;
+	totalPhysMem  = totalPhysMem * memInfo.mem_unit;
+	cout<<"Total Physical Memory: "<<totalPhysMem<<endl;
 	free(tid);
-	fclose(fptr);
+	
+    clock_t end = clock();
+    cout<<"Time taken: "<<(double)(end-start)/CLOCKS_PER_SEC<<endl;
+    fclose(fptr);
 	fclose(fptr2);
 	return 0;   
 }

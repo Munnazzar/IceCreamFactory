@@ -9,11 +9,17 @@
 #include <sys/syscall.h>
 #include <sys/shm.h>
 #include <fcntl.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 #include <sys/mman.h>
 #include <string>
+#include <time.h>
 
 using namespace std;
 FILE *fptr;
+struct sysinfo memInfo;
+
+
 
 double priceFlavours[3]  		  =  {70.1, 83.5, 14.51};
 double priceCones[3]     		  =  {10.4, 11.5, 12.6};
@@ -61,6 +67,8 @@ sem_t sem_cones[3];
 sem_t sem_toppings[3];
 
 int main(){
+	clock_t begin = clock();
+	sysinfo (&memInfo);
 	fptr = freopen("data.txt","r", stdin);
 
 	int numThreads;
@@ -130,13 +138,17 @@ int main(){
 			cout<<"\nTotal Price: "<<allBuyers[i].totalPrice<<endl;
 		cout<<endl<<endl;
 	}
-	
+	long long totalPhysMem = memInfo.totalram;
+	totalPhysMem  = totalPhysMem * memInfo.mem_unit;
+	cout<<"Total Physical Memory: "<<totalPhysMem<<endl;
 	free(tid);
 	for(int i = 0; i<3; i++){
 		sem_destroy(&sem_flavours[i]);
 		sem_destroy(&sem_cones[i]);
 		sem_destroy(&sem_toppings[i]);
 	}
+	clock_t end = clock();
+	cout<<"Time taken: "<<(double)(end-begin)/CLOCKS_PER_SEC<<endl;
 	fclose(fptr);
 	fclose(fptr2);
 	return 0;

@@ -9,9 +9,12 @@
 #include <sys/syscall.h>
 #include <sys/shm.h>
 #include <fcntl.h>
+#include "sys/types.h"
+#include "sys/sysinfo.h"
 #include <sys/mman.h>
 #include <string>
-
+#include <time.h>
+struct sysinfo memInfo;
 using namespace std;
 FILE *fptr;
 
@@ -43,8 +46,9 @@ pthread_mutex_t m_toppings[3];
 pthread_mutex_t m_cones[3];
 
 int main(){
+	clock_t begin = clock();
 	fptr = freopen("data.txt","r", stdin);
-
+	sysinfo (&memInfo);
 	int numThreads;
 	int numBuyers;
 	cin>>numThreads;
@@ -112,15 +116,21 @@ int main(){
 			cout<<"\nTotal Price: "<<allBuyers[i].totalPrice<<endl;
 		cout<<endl<<endl;
 	}
-	
+	long long totalPhysMem = memInfo.totalram;
+	totalPhysMem  = totalPhysMem * memInfo.mem_unit;
+	cout<<"Total Physical Memory: "<<totalPhysMem<<endl;
 	free(tid);
 	for(int i = 0; i<3; i++){
         pthread_mutex_destroy(&m_cones[i]);
         pthread_mutex_destroy(&m_toppings[i]);
         pthread_mutex_destroy(&m_flavours[i]);
 	}
+	clock_t end = clock();
+	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	cout<<"Time taken: "<<elapsed_secs<<endl;
 	fclose(fptr);
 	fclose(fptr2);
+	
 	return 0;
 }
 
