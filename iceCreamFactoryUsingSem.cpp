@@ -25,7 +25,7 @@ string toppings[3]  			  =  {"Sprinkles",    "Fudge",     "WhippedCream"};
 
 unsigned int amountFlavours[3]    =  {50, 50, 50};
 unsigned int amountCones[3]	      =  {50, 50, 50};
-unsigned int amountToppings[3]	  =  {1, 70, 1};
+unsigned int amountToppings[3]	  =  {70, 70, 70};
 
 struct buyer{
 	unsigned int ID;
@@ -112,7 +112,7 @@ int main(){
 		}
 	}
 
-	FILE* fptr2 = freopen("output.txt", "w", stdout);	
+	FILE* fptr2 = freopen("output.txt", "a+", stdout);	
 	for(int i = 0; i<numBuyers; i++){
 		cout<<"Customer ID: "<<allBuyers[i].ID<<endl;
 		cout<<"Cones: "<<allBuyers[i].coneFlavour<<endl;
